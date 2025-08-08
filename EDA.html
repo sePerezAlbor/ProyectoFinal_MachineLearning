@@ -57,7 +57,7 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'xd';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'EDA';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="Contextualización" href="contextualizacion.html" />
@@ -181,6 +181,7 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="contextualizacion.html"><strong>Contextualización</strong></a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#"><strong>Análisis Exploratorio de Datos (EDA)</strong></a></li>
+
 </ul>
 
     </div>
@@ -252,7 +253,7 @@
       
       
       
-      <li><a href="https://github.com/sePerezAlbor/ProyectoFinal_MachineLearning/issues/new?title=Issue%20on%20page%20%2Fxd.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/sePerezAlbor/ProyectoFinal_MachineLearning/issues/new?title=Issue%20on%20page%20%2FEDA.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -282,7 +283,7 @@
       
       
       
-      <li><a href="_sources/xd.ipynb" target="_blank"
+      <li><a href="_sources/EDA.ipynb" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -376,8 +377,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Análisis Exploratorio de Datos (EDA)</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y modulos necesarios</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-datos"><strong>Importación de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#renombrar-columnas"><strong>Renombrar columnas</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diccionario-de-variables"><strong>Diccionario de variables</strong></a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conjunto-de-datos"><strong>Conjunto de datos</strong></a></li>
+</ul>
+
             </nav>
         </div>
     </div>
@@ -390,6 +399,56 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="analisis-exploratorio-de-datos-eda">
 <h1><strong>Análisis Exploratorio de Datos (EDA)</strong><a class="headerlink" href="#analisis-exploratorio-de-datos-eda" title="Link to this heading">#</a></h1>
+<section id="librerias-y-modulos-necesarios">
+<h2><strong>Librerías y modulos necesarios</strong><a class="headerlink" href="#librerias-y-modulos-necesarios" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="importacion-de-datos">
+<h2><strong>Importación de datos</strong><a class="headerlink" href="#importacion-de-datos" title="Link to this heading">#</a></h2>
+<p>Como se señaló en la sección de <a class="reference internal" href="contextualizacion.html"><span class="std std-doc">contextualización</span></a>, los datos utilizados provienen de la competencia <a class="reference external" href="https://www.kaggle.com/competitions/GiveMeSomeCredit">Give Me Some Credit</a>, desde donde pueden descargarse. Para facilitar el trabajo reproducible en este proyecto, hemos alojado los conjuntos de entrenamiento y prueba proporcionados por la competencia en el repositorio de GitHub <a class="reference external" href="https://github.com/sePerezAlbor/Data">sePerezAlbor/Data</a>, específicamente los archivos <code class="docutils literal notranslate"><span class="pre">GiveMeSomeCredit-cs-training.csv</span></code> y <code class="docutils literal notranslate"><span class="pre">GiveMeSomeCredit-cs-test.csv</span></code>. Para importar los datos se recomienza utilizar el siguiente código.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">##### TRAINING DATA</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/sePerezAlbor/Data/refs/heads/main/GiveMeSomeCredit-cs-training.csv&quot;</span>
+<span class="n">train_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s2">&quot;NA&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1">##### TEST DATA</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/sePerezAlbor/Data/refs/heads/main/GiveMeSomeCredit-cs-test.csv&quot;</span>
+<span class="n">test_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">na_values</span><span class="o">=</span><span class="s2">&quot;NA&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="renombrar-columnas">
+<h2><strong>Renombrar columnas</strong><a class="headerlink" href="#renombrar-columnas" title="Link to this heading">#</a></h2>
+<p>Esto es opcional y puede omitirse si se prefiere trabajar con los nombres de columnas originales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_data</span> <span class="o">=</span> <span class="n">train_data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">&#39;SeriousDlqin2yrs&#39;</span><span class="p">:</span> <span class="s1">&#39;mora_grave_2anios&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;RevolvingUtilizationOfUnsecuredLines&#39;</span><span class="p">:</span> <span class="s1">&#39;utilizacion_lineas_credito&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="s1">&#39;edad&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NumberOfTime30-59DaysPastDueNotWorse&#39;</span><span class="p">:</span> <span class="s1">&#39;veces_mora_30_59_dias_2anios&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;DebtRatio&#39;</span><span class="p">:</span> <span class="s1">&#39;razon_deuda_ingreso&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;MonthlyIncome&#39;</span><span class="p">:</span> <span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NumberOfOpenCreditLinesAndLoans&#39;</span><span class="p">:</span> <span class="s1">&#39;num_creditos_lineas_abiertas&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NumberOfTimes90DaysLate&#39;</span><span class="p">:</span> <span class="s1">&#39;veces_mora_90_dias&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NumberRealEstateLoansOrLines&#39;</span><span class="p">:</span> <span class="s1">&#39;num_prestamos_inmobiliarios&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NumberOfTime60-89DaysPastDueNotWorse&#39;</span><span class="p">:</span> <span class="s1">&#39;veces_mora_60_89_dias_2anios&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;NumberOfDependents&#39;</span><span class="p">:</span> <span class="s1">&#39;num_dependientes&#39;</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="diccionario-de-variables">
 <h2><strong>Diccionario de variables</strong><a class="headerlink" href="#diccionario-de-variables" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table" id="tabla-diccionario-gmsc">
@@ -460,19 +519,124 @@ document.write(`
 </tbody>
 </table>
 </div>
+</section>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="conjunto-de-datos">
+<h1><strong>Conjunto de datos</strong><a class="headerlink" href="#conjunto-de-datos" title="Link to this heading">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Bermudez p&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> 
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bermudez p
-</pre></div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mora_grave_2anios</th>
+      <th>utilizacion_lineas_credito</th>
+      <th>edad</th>
+      <th>veces_mora_30_59_dias_2anios</th>
+      <th>razon_deuda_ingreso</th>
+      <th>ingreso_mensual</th>
+      <th>num_creditos_lineas_abiertas</th>
+      <th>veces_mora_90_dias</th>
+      <th>num_prestamos_inmobiliarios</th>
+      <th>veces_mora_60_89_dias_2anios</th>
+      <th>num_dependientes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>0.766127</td>
+      <td>45</td>
+      <td>2</td>
+      <td>0.802982</td>
+      <td>9120.0</td>
+      <td>13</td>
+      <td>0</td>
+      <td>6</td>
+      <td>0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0</td>
+      <td>0.957151</td>
+      <td>40</td>
+      <td>0</td>
+      <td>0.121876</td>
+      <td>2600.0</td>
+      <td>4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0</td>
+      <td>0.658180</td>
+      <td>38</td>
+      <td>1</td>
+      <td>0.085113</td>
+      <td>3042.0</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0</td>
+      <td>0.233810</td>
+      <td>30</td>
+      <td>0</td>
+      <td>0.036050</td>
+      <td>3300.0</td>
+      <td>5</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0</td>
+      <td>0.907239</td>
+      <td>49</td>
+      <td>1</td>
+      <td>0.024926</td>
+      <td>63588.0</td>
+      <td>7</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
-</div>
-</div>
-</section>
+<p>Se observa que las variables abarcan tanto características financieras como demográficas, incluyendo la edad del solicitante y el número de dependientes, así como múltiples indicadores relacionados con su comportamiento crediticio, tales como la utilización de líneas de crédito, la frecuencia de moras en distintos rangos de días, la relación deuda–ingreso, el ingreso mensual y el número de préstamos o líneas de crédito abiertas. Esta combinación de atributos, descritos en detalle en el <a class="reference internal" href="#tabla-diccionario-gmsc"><span class="std std-ref">diccionario de variables Give Me Some Credit</span></a>, proporciona una base integral para analizar patrones de riesgo y establecer relaciones entre factores personales y financieros que pueden influir en la probabilidad de morosidad grave.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -530,8 +694,16 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#"><strong>Análisis Exploratorio de Datos (EDA)</strong></a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#librerias-y-modulos-necesarios"><strong>Librerías y modulos necesarios</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-datos"><strong>Importación de datos</strong></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#renombrar-columnas"><strong>Renombrar columnas</strong></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diccionario-de-variables"><strong>Diccionario de variables</strong></a></li>
 </ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#conjunto-de-datos"><strong>Conjunto de datos</strong></a></li>
+</ul>
+
   </nav></div>
 
 </div></div>
