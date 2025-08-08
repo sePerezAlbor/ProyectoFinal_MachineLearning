@@ -1,13 +1,14 @@
 # **Proyecto Final - Machine Learning**
 
 ## **Estudiantes**
+
 - **Samuel David Bermudez Arenas**
 - **Danier Conde Ramos**
 - **Sebatián Alfonso Pérez Albor**
 
 ## **Profesor**
-- **Dr. Lihki Rubio**
 
+- **Dr. Lihki Rubio**
 
 ## **Ciencia de Datos**
 
